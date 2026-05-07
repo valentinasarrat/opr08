@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Un fetch</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300..800;1,300..800&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root{
+    --texto: #2C2C2A;
+    --fondo: #A692F5;
+    --blanco: #ffffff;
+    --fuente: "DM Sans", sans-serif;
+    --fuente-titulo: "DM Serif Display", serif;
+}
+
+#escondido { display: none; }
+
+body {
+    font-family: var(--fuente);
+    background: var(--fondo);
+    color: var(--texto);
+    margin: 0;
+    padding: 0;
+}
+
+div.contenedor {
+    width: calc(100% - 2%);
+    max-width: 600px;
+    padding: 1% 2%;
+    margin: 50px auto;
+    background: var(--blanco);
+    box-shadow: 0 0 3px #3C3489;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 2.5rem;
+    font-family: var(--fuente-titulo);
+    color: #3C3489;
+}
+
+ul#estudiantes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#estudiantes li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-top: 1px solid #CECBF6;
+}
+
+ul#estudiantes li a {
+    text-decoration: none;
+    color: var(--texto);
+    transition: all ease .5s;
+}
+
+ul#estudiantes li a:hover {
+    letter-spacing: .1rem;
+}
+
+figure {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 2rem auto;
+}
+
+@keyframes orbita-feliz {
+    0%   { transform: rotate(0deg)   translateX(80px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+}
+
+@keyframes orbita-triste {
+    0%   { transform: rotate(180deg) translateX(80px) rotate(-180deg); }
+    100% { transform: rotate(540deg) translateX(80px) rotate(-540deg); }
+}
+
+@keyframes color-feliz {
+    0%   { fill: #A692F5; }
+    50%  { fill: #FAC775; }
+    100% { fill: #A692F5; }
+}
+
+@keyframes color-triste {
+    0%   { fill: #FAC775; }
+    50%  { fill: #A692F5; }
+    100% { fill: #FAC775; }
+}
+
+figure svg:first-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -44px;
+    margin-left: -44px;
+    animation: orbita-feliz 6s linear infinite;
+}
+
+figure svg:last-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -44px;
+    margin-left: -44px;
+    animation: orbita-triste 6s linear infinite;
+}
+
+figure svg:first-child g {
+    animation: color-feliz 6s ease-in-out infinite;
+}
+
+figure svg:last-child g {
+    animation: color-triste 6s ease-in-out infinite;
+}
+
+#first {
+  display: block;
+}
+
+#second {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  #first {
+    display: none;
+  }
+
+  #second {
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Symbols: corazon lleno (#bien) y corazon vacio (#mal) -->
+<svg xmlns="http://www.w3.org/2000/svg" id="escondido">
+    <symbol id="bien" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+    </symbol>
+    <symbol id="mal" viewBox="0 0 16 16">
+        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+    </symbol>
+</svg>
+
+<div class="contenedor">
+    <h1>hola mundo</h1>
+    <ul id="estudiantes"></ul>
+</div>
+<figure>
+    <!-- Corazón lleno -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 16 16">
+        <g>
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+        </g>
+    </svg>
+    <!-- Corazón vacío -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 16 16">
+        <g>
+            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+        </g>
+    </svg>
+</figure>
+
+<script>
+fetch("https://raw.githubusercontent.com/profesorfaco/opr/refs/heads/main/clase-07/registros.json")
+    .then((respuesta) => {
+        if (!respuesta.ok) throw new Error("Error HTTP: " + respuesta.status);
+        return respuesta.json();
+    })
+    .then((datos) => {
+        const donde = document.getElementById("estudiantes");
+        datos.forEach((x) => {
+            var cuantos = [x.uno, x.dos, x.tres, x.cuatro];
+            donde.innerHTML += `<li><a href="${x.cuenta}">${x.nombre}</a> ${pelotitas(cuantos)}</li>`;
+        });
+        function pelotitas(n) {
+            var armado = "";
+            n.forEach((e) => {
+                if (!e) {
+                    armado += `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 16"><use href="#mal" fill="#993556"/></svg> `;
+                } else if (e[1]) {
+                    armado += `<a href="${e[0]}" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 16"><use href="#bien" fill="#0F6E56"/></svg></a> `;
+                } else {
+                    armado += `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 16"><use href="#mal" fill="#993556"/></svg> `;
+                }
+            });
+            return armado;
+        }
+    })
+    .catch((error) => {
+        console.error("Algo salió mal:", error);
+    });
+</script>
+</body>
+</html>
